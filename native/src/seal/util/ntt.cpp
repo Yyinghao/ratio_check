@@ -6,6 +6,7 @@
 #include "seal/util/uintarithsmallmod.h"
 #include <algorithm>
 #include <iostream>
+#include <ctime>
 #ifdef SEAL_USE_INTEL_HEXL
 #include "seal/memorymanager.h"
 #include "seal/util/iterator.h"
@@ -199,8 +200,16 @@ namespace intel
             seal::util::CoeffIter operand, std::size_t N, std::uint64_t modulus, std::uint64_t root,
             std::uint64_t input_mod_factor, std::uint64_t output_mod_factor)
         {
+            static int Num_NTT = 0;
+            static clock_t time_NTT = 0;
+            clock_t start,end; 
+            start = clock();
             get_ntt(N, modulus, root).ComputeForward(operand, operand, input_mod_factor, output_mod_factor);
-            cout<<"compute_forward_ntt"<<endl;
+            end = clock();
+            time_NTT += (end - start);
+            Num_NTT ++；
+            cout<<"Num_NTT: "<<Num_NTT<<endl;
+            cout<<"time_NTT: "<<time_NTT<<endl;
         }
 
         /**
@@ -217,8 +226,16 @@ namespace intel
             seal::util::CoeffIter operand, std::size_t N, std::uint64_t modulus, std::uint64_t root,
             std::uint64_t input_mod_factor, std::uint64_t output_mod_factor)
         {
+            static int Num_INTT = 0;
+            static clock_t time_INTT = 0;
+            clock_t start,end; 
+            start = clock();
             get_ntt(N, modulus, root).ComputeInverse(operand, operand, input_mod_factor, output_mod_factor);
-            cout<<"compute_inverse_ntt"<<endl;
+            end = clock();
+            time_INTT += (end - start);
+            Num_INTT ++；
+           cout<<"Num_INTT: "<<Num_INTT<<endl;
+           cout<<"time_INTT: "<<time_INTT<<endl;
         }
 
     } // namespace seal_ext
