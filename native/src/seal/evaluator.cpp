@@ -13,6 +13,7 @@
 #include <cmath>
 #include <functional>
 #include <iostream>
+#include <ctime>
 using namespace std;
 using namespace seal::util;
 
@@ -447,7 +448,7 @@ namespace seal
             // Step (8): use Shenoy-Kumaresan method to convert the result to base q and write to encrypted1
             rns_tool->fastbconv_sk(temp_Bsk, get<2>(I), pool);
         });
-            cout<<"bfv_multiply_c2c_inplace"<<endl;
+           // cout<<"bfv_multiply_c2c_inplace"<<endl;
         // Set the scale
         encrypted1.scale() = new_scale;
     }
@@ -590,7 +591,7 @@ namespace seal
             // Set the final result
             set_poly_array(temp, dest_size, coeff_count, coeff_modulus_size, encrypted1.data());
         }
-        cout<<"ckks_multiply_c2c_inplace"<<endl;
+        //cout<<"ckks_multiply_c2c_inplace"<<endl;
         // Set the scale
         encrypted1.scale() = new_scale;
     }
@@ -840,7 +841,7 @@ namespace seal
 
         // Set the scale
         encrypted.scale() = new_scale;
-        cout<<"ckks_square_c2c_inplace"<<endl;
+        //cout<<"ckks_square_c2c_inplace"<<endl;
     }
 
     void Evaluator::relinearize_internal(
@@ -1604,7 +1605,7 @@ namespace seal
                 {
                     // Every coeff_modulus prime is larger than plain_modulus, so there is no need to adjust the
                     // monomial. Instead, just do an RNS multiplication.
-                    negacyclic_multiply_poly_mono_coeffmod(
+                    negacyclic_multiply_poly_mono_coffmod(
                         encrypted, encrypted_size, plain[mono_exponent], mono_exponent, coeff_modulus, encrypted, pool);
                 }
             }
@@ -1668,7 +1669,7 @@ namespace seal
                 inverse_ntt_negacyclic_harvey(get<0>(J), get<3>(J));
             });
         });
-        cout<<"multiply_plain_normal(poly)"<<endl;
+        //cout<<"multiply_plain_normal(poly)"<<endl;
         // Set the scale
         encrypted.scale() = new_scale;
     }
@@ -1709,7 +1710,7 @@ namespace seal
         SEAL_ITERATE(iter(encrypted_ntt), encrypted_ntt_size, [&](auto I) {
             dyadic_product_coeffmod(I, plain_ntt_iter, coeff_modulus_size, coeff_modulus, I);
         });
-        cout<<"multiply_plain_ntt"<<endl;
+        //cout<<"multiply_plain_ntt"<<endl;
         // Set the scale
         encrypted_ntt.scale() = new_scale;
     }
@@ -1905,6 +1906,7 @@ namespace seal
     void Evaluator::apply_galois_inplace(
         Ciphertext &encrypted, uint32_t galois_elt, const GaloisKeys &galois_keys, MemoryPoolHandle pool) const
     {
+
         // Verify parameters.
         if (!is_metadata_valid_for(encrypted, context_) || !is_buffer_valid(encrypted))
         {
@@ -2009,6 +2011,11 @@ namespace seal
     void Evaluator::rotate_internal(
         Ciphertext &encrypted, int steps, const GaloisKeys &galois_keys, MemoryPoolHandle pool) const
     {
+           clock_t time_rotate = 0;
+            static double t_rotate =0;
+            clock_t start,end; 
+            start = clock();
+            
         auto context_data_ptr = context_.get_context_data(encrypted.parms_id());
         if (!context_data_ptr)
         {
@@ -2061,7 +2068,10 @@ namespace seal
                 }
             });
         }
-        cout<<"Rotate"<<endl;
+        end = clock();
+        time_rotate += (end - start);
+        t_rotate += (double)time_rotate/CLOCKS_PER_SEC;
+        cout<<"time_rotate: "<<t_rotate<<endl;
     }
 
     void Evaluator::switch_key_inplace(
