@@ -6,6 +6,7 @@
 #include "seal/util/scalingvariant.h"
 #include "seal/util/uintarith.h"
 #include <iostream>
+#include "ctime"
 
 using namespace std;
 
@@ -34,7 +35,11 @@ namespace seal
             // Coefficients of plain m multiplied by coeff_modulus q, divided by plain_modulus t,
             // and rounded to the nearest integer (rounded up in case of a tie). Equivalent to
             // floor((q * m + floor((t+1) / 2)) / t).
-            SEAL_ITERATE(iter(plain.data(), size_t(0)), plain_coeff_count, [&](auto I) {
+             clock_t multiply_add_plain_time = 0;
+            static double t_multiply_add_plain =0;
+            clock_t start,end; 
+            start = clock();
+             SEAL_ITERATE(iter(plain.data(), size_t(0)), plain_coeff_count, [&](auto I) {
                 // Compute numerator = (q mod t) * m[i] + (t+1)/2
                 unsigned long long prod[2]{ 0, 0 };
                 uint64_t numerator[2]{ 0, 0 };
@@ -54,7 +59,12 @@ namespace seal
                         get<0>(J)[coeff_index] = add_uint_mod(get<0>(J)[coeff_index], scaled_rounded_coeff, get<1>(J));
                     });
             });
-            cout<<"add_c2p_with_scaling_variant"<<endl;
+            end = clock();
+            multiply_add_plain_time += (end - start);
+            t_multiply_add_plain += (double)multiply_add_plain_time/CLOCKS_PER_SEC;
+            cout<<"multiply_add_plain_time: "<<t_multiply_add_plain<<endl;
+           
+            
 
         }
 
@@ -79,6 +89,10 @@ namespace seal
             // Coefficients of plain m multiplied by coeff_modulus q, divided by plain_modulus t,
             // and rounded to the nearest integer (rounded up in case of a tie). Equivalent to
             // floor((q * m + floor((t+1) / 2)) / t).
+            clock_t multiply_sub_plain_time = 0;
+            static double t_multiply_sub_plain =0;
+            clock_t start,end; 
+            start = clock();
             SEAL_ITERATE(iter(plain.data(), size_t(0)), plain_coeff_count, [&](auto I) {
                 // Compute numerator = (q mod t) * m[i] + (t+1)/2
                 unsigned long long prod[2]{ 0, 0 };
@@ -99,7 +113,10 @@ namespace seal
                         get<0>(J)[coeff_index] = sub_uint_mod(get<0>(J)[coeff_index], scaled_rounded_coeff, get<1>(J));
                     });
             });
-            cout<<"cout<<"sub_c2p_with_scaling_variant"<<endl;"
+            end = clock();
+            multiply_sub_plain_time += (end - start);
+            t_multiply_sub_plain += (double)multiply_sub_plain_time/CLOCKS_PER_SEC;
+            cout<<"multiply_sub_plain_time: "<<t_multiply_sub_plain<<endl;
         }
     } // namespace util
 } // namespace seal
