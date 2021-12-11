@@ -200,18 +200,9 @@ namespace intel
             seal::util::CoeffIter operand, std::size_t N, std::uint64_t modulus, std::uint64_t root,
             std::uint64_t input_mod_factor, std::uint64_t output_mod_factor)
         {
-            static int Num_NTT = 0;
-             clock_t time_NTT = 0;
-            static double t_NTT =0;
-            clock_t start,end; 
-            start = clock();
+           
             get_ntt(N, modulus, root).ComputeForward(operand, operand, input_mod_factor, output_mod_factor);
-            end = clock();
-            time_NTT += (end - start);
-            t_NTT += (double)time_NTT/CLOCKS_PER_SEC;
-            Num_NTT ++；
-            cout<<"Num_NTT: "<<Num_NTT<<endl;
-            cout<<"time_NTT: "<<t_NTT<<endl;
+           
         }
 
         /**
@@ -228,18 +219,9 @@ namespace intel
             seal::util::CoeffIter operand, std::size_t N, std::uint64_t modulus, std::uint64_t root,
             std::uint64_t input_mod_factor, std::uint64_t output_mod_factor)
         {
-            static int Num_INTT = 0;
-            clock_t time_INTT = 0;
-            static double t_INTT =0;
-            clock_t start,end; 
-            start = clock();
+           
             get_ntt(N, modulus, root).ComputeInverse(operand, operand, input_mod_factor, output_mod_factor);
-            end = clock();
-            time_INTT += (end - start);
-            t_INTT += (double)time_INTT/CLOCKS_PER_SEC;
-            Num_INTT ++；
-           cout<<"Num_INTT: "<<Num_INTT<<endl;
-           cout<<"time_INTT: "<<t_INTT<<endl;
+           
         }
 
     } // namespace seal_ext
