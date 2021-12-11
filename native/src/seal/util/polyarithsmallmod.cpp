@@ -67,22 +67,18 @@ namespace seal
             const uint64_t modulus_value = modulus.value();
 
 #ifdef SEAL_USE_INTEL_HEXL
-            clock_t poly_add_time = 0;
-            static double t_poly_add =0;
-            clock_t start,end; 
-            start = clock();
+           
+            static int Num_add_poly_coeffmod =0;
+           
             intel::hexl::EltwiseAddMod(&result[0], &operand1[0], &operand2[0], coeff_count, modulus_value);
-            end = clock();
-            poly_add_time += (end - start);
-            t_poly_add += (double)poly_add_time/CLOCKS_PER_SEC;
-            cout<<"poly_add_time: "<<t_poly_add<<endl;
+            Num_add_poly_coeffmod++;
+           
+            cout<<"Num_add_poly_coeffmod: "<<Num_add_poly_coeffmod<<endl;
             
 #else
-            clock_t poly_add_time = 0;
-            static double t_poly_add =0;
-            clock_t start,end; 
-            start = clock();
-            SEAL_ITERATE(iter(operand1, operand2, result), coeff_count, [&](auto I) {
+          static int Num_add_poly_coeffmod =0;
+           
+             SEAL_ITERATE(iter(operand1, operand2, result), coeff_count, [&](auto I) {
 #ifdef SEAL_DEBUG
                 if (get<0>(I) >= modulus_value)
                 {
@@ -96,10 +92,11 @@ namespace seal
                 std::uint64_t sum = get<0>(I) + get<1>(I);
                 get<2>(I) = SEAL_COND_SELECT(sum >= modulus_value, sum - modulus_value, sum);
             });
-            end = clock();
-            poly_add_time += (end - start);
-            t_poly_add += (double)poly_add_time/CLOCKS_PER_SEC;
-            cout<<"poly_add_time: "<<t_poly_add<<endl;
+            Num_add_poly_coeffmod++;
+           
+            cout<<"Num_add_poly_coeffmod: "<<Num_add_poly_coeffmod<<endl;
+          
+          
 #endif
         }
 
@@ -128,21 +125,16 @@ namespace seal
 
             const uint64_t modulus_value = modulus.value();
 #ifdef SEAL_USE_INTEL_HEXL
-             clock_t poly_sub_time = 0;
-            static double t_poly_sub =0;
-            clock_t start,end; 
-            start = clock();
+            
+            static int Num_sub_poly_coeffmod =0;
+          
             intel::hexl::EltwiseSubMod(result, operand1, operand2, coeff_count, modulus_value);
-            end = clock();
-            poly_sub_time += (end - start);
-            t_poly_sub += (double)poly_sub_time/CLOCKS_PER_SEC;
-            cout<<"poly_sub_time: "<<t_poly_sub<<endl;
+            Num_sub_poly_coeffmod++;
+            cout<<"Num_sub_poly_coeffmod: "<<Num_sub_poly_coeffmod<<endl;
             
 #else
-            clock_t poly_sub_time = 0;
-            static double t_poly_sub =0;
-            clock_t start,end; 
-            start = clock();
+             static int Num_sub_poly_coeffmod =0;
+          
             SEAL_ITERATE(iter(operand1, operand2, result), coeff_count, [&](auto I) {
 #ifdef SEAL_DEBUG
                 if (get<0>(I) >= modulus_value)
@@ -158,10 +150,10 @@ namespace seal
                 std::int64_t borrow = sub_uint64(get<0>(I), get<1>(I), &temp_result);
                 get<2>(I) = temp_result + (modulus_value & static_cast<std::uint64_t>(-borrow));
             });
-            end = clock();
-            poly_sub_time += (end - start);
-            t_poly_sub += (double)poly_sub_time/CLOCKS_PER_SEC;
-            cout<<"poly_sub_time: "<<t_poly_sub<<endl;
+            Num_sub_poly_coeffmod++;
+            cout<<"Num_sub_poly_coeffmod: "<<Num_sub_poly_coeffmod<<endl;
+          
+          
 #endif
         }
 
@@ -188,29 +180,24 @@ namespace seal
 #endif
 
 #ifdef SEAL_USE_INTEL_HEXL
-            clock_t poly_add_scalar_time = 0;
-            static double t_poly_add_scalar =0;
-            clock_t start,end; 
-            start = clock();
+            
+            static int Num_add_poly_scalar_coeffmod =0;
+           
             intel::hexl::EltwiseAddMod(result, poly, scalar, coeff_count, modulus.value());
-            end = clock();
-            poly_add_scalar_time += (end - start);
-            t_poly_add_scalar += (double)poly_add_scalar_time/CLOCKS_PER_SEC;
-            cout<<"poly_add_scalar_time: "<<t_poly_add_scalar<<endl;
+            Num_add_poly_scalar_coeffmod++;
+            cout<<"Num_add_poly_scalar_coeffmod: "<<Num_add_poly_scalar_coeffmod<<endl;
             
 #else
-            clock_t poly_add_scalar_time = 0;
-            static double t_poly_add_scalar =0;
-            clock_t start,end; 
-            start = clock();
+            static int Num_add_poly_scalar_coeffmod =0;
+           
              SEAL_ITERATE(iter(poly, result), coeff_count, [&](auto I) {
                 const uint64_t x = get<0>(I);
                 get<1>(I) = add_uint_mod(x, scalar, modulus);
             });
-            end = clock();
-            poly_add_scalar_time += (end - start);
-            t_poly_add_scalar += (double)poly_add_scalar_time/CLOCKS_PER_SEC;
-            cout<<"poly_add_scalar_time: "<<t_poly_add_scalar<<endl;
+            Num_add_poly_scalar_coeffmod++;
+            cout<<"Num_add_poly_scalar_coeffmod: "<<Num_add_poly_scalar_coeffmod<<endl;
+            
+           
            
             
 #endif
@@ -239,31 +226,23 @@ namespace seal
 #endif
 
 #ifdef SEAL_USE_INTEL_HEXL
-            clock_t poly_sub_scalar_time = 0;
-            static double t_poly_sub_scalar =0;
-            clock_t start,end; 
-            start = clock();
+             static int Num_sub_poly_scalar_coeffmod =0;
+           
             intel::hexl::EltwiseSubMod(result, poly, scalar, coeff_count, modulus.value());
-            end = clock();
-            poly_sub_scalar_time += (end - start);
-            t_poly_sub_scalar += (double)poly_sub_scalar_time/CLOCKS_PER_SEC;
-            cout<<"poly_sub_scalar_time: "<<t_poly_sub_scalar<<endl;
+            Num_sub_poly_scalar_coeffmod++;
+            cout<<"Num_sub_poly_scalar_coeffmod: "<<Num_sub_poly_scalar_coeffmod<<endl;
+            
             
 #else
-            clock_t poly_sub_scalar_time = 0;
-            static double t_poly_sub_scalar =0;
-            clock_t start,end; 
-            start = clock();
+             static int Num_sub_poly_scalar_coeffmod =0;
+           
             SEAL_ITERATE(iter(poly, result), coeff_count, [&](auto I) {
                 const uint64_t x = get<0>(I);
                 get<1>(I) = sub_uint_mod(x, scalar, modulus);
             });
-            end = clock();
-            poly_sub_scalar_time += (end - start);
-            t_poly_sub_scalar += (double)poly_sub_scalar_time/CLOCKS_PER_SEC;
-            cout<<"poly_sub_scalar_time: "<<t_poly_sub_scalar<<endl;
-            
-        
+            Num_sub_poly_scalar_coeffmod++;
+            cout<<"Num_sub_poly_scalar_coeffmod: "<<Num_sub_poly_scalar_coeffmod<<endl;
+                
 #endif
         }
 
@@ -287,31 +266,23 @@ namespace seal
 #endif
 
 #ifdef SEAL_USE_INTEL_HEXL
-            clock_t poly_mult_scalar_time = 0;
-            static double t_poly_mult_scalar =0;
-            clock_t start,end; 
-            start = clock();
+            
+            static int Num_multiply_poly_scalar_coeffmod =0;
+           
             intel::hexl::EltwiseFMAMod(&result[0], &poly[0], scalar.operand, nullptr, coeff_count, modulus.value(), 8);
-            end = clock();
-            poly_mult_scalar_time += (end - start);
-            t_poly_mult_scalar += (double)poly_mult_scalar_time/CLOCKS_PER_SEC;
-            cout<<"poly_mult_scalar_time: "<<t_poly_mult_scalar<<endl;
+            Num_multiply_poly_scalar_coeffmod++;
+            cout<<"Num_multiply_poly_scalar_coeffmod: "<<Num_multiply_poly_scalar_coeffmod<<endl;
             
 #else
-            clock_t poly_mult_scalar_time = 0;
-            static double t_poly_mult_scalar =0;
-            clock_t start,end; 
-            start = clock();
-            SEAL_ITERATE(iter(poly, result), coeff_count, [&](auto I) {
+            static int Num_multiply_poly_scalar_coeffmod =0;
+           
+             SEAL_ITERATE(iter(poly, result), coeff_count, [&](auto I) {
                 const uint64_t x = get<0>(I);
                 get<1>(I) = multiply_uint_mod(x, scalar, modulus);
             });
-            end = clock();
-            poly_mult_scalar_time += (end - start);
-            t_poly_mult_scalar += (double)poly_mult_scalar_time/CLOCKS_PER_SEC;
-            cout<<"poly_mult_scalar_time: "<<t_poly_mult_scalar<<endl;
-            
-            
+            Num_multiply_poly_scalar_coeffmod++;
+            cout<<"Num_multiply_poly_scalar_coeffmod: "<<Num_multiply_poly_scalar_coeffmod<<endl;
+              
 #endif
         }
 
@@ -342,24 +313,21 @@ namespace seal
             }
 #endif
 #ifdef SEAL_USE_INTEL_HEXL
-            clock_t poly_dyadic_time = 0;
-            static double t_dyadic_scalar =0;
-            clock_t start,end; 
-            start = clock();
+            
+            static int Num_dyadic_product_coeffmod =0;
+        
             intel::hexl::EltwiseMultMod(&result[0], &operand1[0], &operand2[0], coeff_count, modulus.value(), 4);
-            end = clock();
-            poly_dyadic_time += (end - start);
-            t_dyadic_scalar += (double)poly_dyadic_time/CLOCKS_PER_SEC;
-            cout<<"poly_dyadic_time: "<<t_dyadic_scalar<<endl;
+            Num_dyadic_product_coeffmod++;
+       
+            cout<<"Num_dyadic_product_coeffmod: "<<Num_dyadic_product_coeffmod<<endl;
             
 #else
-            const uint64_t modulus_value = modulus.value();
+             static int Num_dyadic_product_coeffmod =0;
+        
+             const uint64_t modulus_value = modulus.value();
             const uint64_t const_ratio_0 = modulus.const_ratio()[0];
             const uint64_t const_ratio_1 = modulus.const_ratio()[1];
-            clock_t poly_dyadic_time = 0;
-            static double t_dyadic_scalar =0;
-            clock_t start,end; 
-            start = clock();
+           
             SEAL_ITERATE(iter(operand1, operand2, result), coeff_count, [&](auto I) {
                 // Reduces z using base 2^64 Barrett reduction
                 unsigned long long z[2], tmp1, tmp2[2], tmp3, carry;
@@ -384,10 +352,11 @@ namespace seal
                 // Claim: One more subtraction is enough
                 get<2>(I) = SEAL_COND_SELECT(tmp3 >= modulus_value, tmp3 - modulus_value, tmp3);
             });
-            end = clock();
-            poly_dyadic_time += (end - start);
-            t_dyadic_scalar += (double)poly_dyadic_time/CLOCKS_PER_SEC;
-            cout<<"poly_dyadic_time: "<<t_dyadic_scalar<<endl;
+            Num_dyadic_product_coeffmod++;
+       
+            cout<<"Num_dyadic_product_coeffmod: "<<Num_dyadic_product_coeffmod<<endl;
+           
+           
             
             
 #endif
@@ -422,7 +391,7 @@ namespace seal
                     result = poly_coeff;
                 }
             });
-            cout<<"poly_infty_norm_coeffmod"<<endl;
+            //cout<<"poly_infty_norm_coeffmod"<<endl;
             return result;
         }
 
