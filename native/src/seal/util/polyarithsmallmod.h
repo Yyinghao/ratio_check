@@ -566,9 +566,12 @@ namespace seal
             }
 #endif
             auto coeff_modulus_size = result.coeff_modulus_size();
+            int NUM=0;
             SEAL_ITERATE(iter(operand1, operand2, result), size, [&](auto I) {
+                NUM++;
                 dyadic_product_coeffmod(get<0>(I), get<1>(I), coeff_modulus_size, modulus, get<2>(I));
             });
+            cout<<"dyadic_inter_NUM: "<<NUM<<endl;
         }
 
         std::uint64_t poly_infty_norm_coeffmod(ConstCoeffIter operand, std::size_t coeff_count, const Modulus &modulus);
