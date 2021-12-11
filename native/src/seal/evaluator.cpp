@@ -775,7 +775,7 @@ namespace seal
             // Step (8): use Shenoy-Kumaresan method to convert the result to base q and write to encrypted1
             rns_tool->fastbconv_sk(temp_Bsk, get<2>(I), pool);
         });
-        cout<<"bfv_square_c2c_inplace"<<endl;
+       // cout<<"bfv_square_c2c_inplace"<<endl;
         // Set the scale
         encrypted.scale() = new_scale;
     }
@@ -1605,7 +1605,7 @@ namespace seal
                 {
                     // Every coeff_modulus prime is larger than plain_modulus, so there is no need to adjust the
                     // monomial. Instead, just do an RNS multiplication.
-                    negacyclic_multiply_poly_mono_coffmod(
+                    negacyclic_multiply_poly_mono_coeffmod(
                         encrypted, encrypted_size, plain[mono_exponent], mono_exponent, coeff_modulus, encrypted, pool);
                 }
             }
@@ -2071,7 +2071,7 @@ namespace seal
         end = clock();
         time_rotate += (end - start);
         t_rotate += (double)time_rotate/CLOCKS_PER_SEC;
-        cout<<"time_rotate: "<<t_rotate<<endl;
+        //cout<<"time_rotate: "<<t_rotate<<endl;
     }
 
     void Evaluator::switch_key_inplace(
