@@ -73,7 +73,7 @@ namespace seal
             intel::hexl::EltwiseAddMod(&result[0], &operand1[0], &operand2[0], coeff_count, modulus_value);
             Num_add_poly_coeffmod++;
            
-            cout<<"Num_add_poly_coeffmod: "<<Num_add_poly_coeffmod<<endl;
+            cout<<"Num_add_poly_coeffmod: "<<coeff_count<<" "<<Num_add_poly_coeffmod<<endl;
             
 #else
           static int Num_add_poly_coeffmod =0;
@@ -94,7 +94,7 @@ namespace seal
             });
             Num_add_poly_coeffmod++;
            
-            cout<<"Num_add_poly_coeffmod: "<<Num_add_poly_coeffmod<<endl;
+            cout<<"Num_add_poly_coeffmod: "<<coeff_count<<" "<<Num_add_poly_coeffmod<<endl;
           
           
 #endif
@@ -130,7 +130,7 @@ namespace seal
           
             intel::hexl::EltwiseSubMod(result, operand1, operand2, coeff_count, modulus_value);
             Num_sub_poly_coeffmod++;
-            cout<<"Num_sub_poly_coeffmod: "<<Num_sub_poly_coeffmod<<endl;
+            cout<<"Num_sub_poly_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_coeffmod<<endl;
             
 #else
              static int Num_sub_poly_coeffmod =0;
@@ -151,7 +151,7 @@ namespace seal
                 get<2>(I) = temp_result + (modulus_value & static_cast<std::uint64_t>(-borrow));
             });
             Num_sub_poly_coeffmod++;
-            cout<<"Num_sub_poly_coeffmod: "<<Num_sub_poly_coeffmod<<endl;
+            cout<<"Num_sub_poly_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_coeffmod<<endl;
           
           
 #endif
@@ -185,7 +185,7 @@ namespace seal
            
             intel::hexl::EltwiseAddMod(result, poly, scalar, coeff_count, modulus.value());
             Num_add_poly_scalar_coeffmod++;
-            cout<<"Num_add_poly_scalar_coeffmod: "<<Num_add_poly_scalar_coeffmod<<endl;
+            cout<<"Num_add_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod<<endl;
             
 #else
             static int Num_add_poly_scalar_coeffmod =0;
@@ -195,7 +195,7 @@ namespace seal
                 get<1>(I) = add_uint_mod(x, scalar, modulus);
             });
             Num_add_poly_scalar_coeffmod++;
-            cout<<"Num_add_poly_scalar_coeffmod: "<<Num_add_poly_scalar_coeffmod<<endl;
+            cout<<"Num_add_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod<<endl;
             
            
            
@@ -230,7 +230,7 @@ namespace seal
            
             intel::hexl::EltwiseSubMod(result, poly, scalar, coeff_count, modulus.value());
             Num_sub_poly_scalar_coeffmod++;
-            cout<<"Num_sub_poly_scalar_coeffmod: "<<Num_sub_poly_scalar_coeffmod<<endl;
+            cout<<"Num_sub_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod<<endl;
             
             
 #else
@@ -241,7 +241,7 @@ namespace seal
                 get<1>(I) = sub_uint_mod(x, scalar, modulus);
             });
             Num_sub_poly_scalar_coeffmod++;
-            cout<<"Num_sub_poly_scalar_coeffmod: "<<Num_sub_poly_scalar_coeffmod<<endl;
+            cout<<"Num_sub_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod<<endl;
                 
 #endif
         }
@@ -271,7 +271,7 @@ namespace seal
            
             intel::hexl::EltwiseFMAMod(&result[0], &poly[0], scalar.operand, nullptr, coeff_count, modulus.value(), 8);
             Num_multiply_poly_scalar_coeffmod++;
-            cout<<"Num_multiply_poly_scalar_coeffmod: "<<Num_multiply_poly_scalar_coeffmod<<endl;
+            cout<<"Num_multiply_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod<<endl;
             
 #else
             static int Num_multiply_poly_scalar_coeffmod =0;
@@ -281,7 +281,7 @@ namespace seal
                 get<1>(I) = multiply_uint_mod(x, scalar, modulus);
             });
             Num_multiply_poly_scalar_coeffmod++;
-            cout<<"Num_multiply_poly_scalar_coeffmod: "<<Num_multiply_poly_scalar_coeffmod<<endl;
+            cout<<"Num_multiply_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod<<endl;
               
 #endif
         }
@@ -319,7 +319,7 @@ namespace seal
             intel::hexl::EltwiseMultMod(&result[0], &operand1[0], &operand2[0], coeff_count, modulus.value(), 4);
             Num_dyadic_product_coeffmod++;
        
-            cout<<"Num_dyadic_product_coeffmod: "<<Num_dyadic_product_coeffmod<<endl;
+            cout<<"Num_dyadic_product_coeffmod: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod<<endl;
             
 #else
              static int Num_dyadic_product_coeffmod =0;
@@ -354,7 +354,7 @@ namespace seal
             });
             Num_dyadic_product_coeffmod++;
        
-            cout<<"Num_dyadic_product_coeffmod: "<<Num_dyadic_product_coeffmod<<endl;
+            cout<<"Num_dyadic_product_coeffmod: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod<<endl;
            
            
             
