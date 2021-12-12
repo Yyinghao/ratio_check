@@ -13,7 +13,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <stdexcept>
-
+using namespace std;
 namespace seal
 {
     namespace util
