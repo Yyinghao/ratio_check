@@ -69,15 +69,23 @@ namespace seal
 #ifdef SEAL_USE_INTEL_HEXL
            
             static int Num_add_poly_coeffmod =0;
+            static int Num_add_poly_coeffmod256 =0;
            
             intel::hexl::EltwiseAddMod(&result[0], &operand1[0], &operand2[0], coeff_count, modulus_value);
-            Num_add_poly_coeffmod++;
-           
-            cout<<"Num_add_poly_coeffmod: "<<coeff_count<<" "<<Num_add_poly_coeffmod<<endl;
+            if(coeff_count==256)
+            {
+                Num_add_poly_coeffmod256++;
+                cout<<"Num_add_poly_coeffmod256: "<<coeff_count<<" "<<Num_add_poly_coeffmod256<<endl;
+            }
+            else
+            {
+                Num_add_poly_coeffmod++;
+                 cout<<"Num_add_poly_coeffmod: "<<coeff_count<<" "<<Num_add_poly_coeffmod<<endl;
+            }
             
 #else
           static int Num_add_poly_coeffmod =0;
-           
+            static int Num_add_poly_coeffmod256 =0;
              SEAL_ITERATE(iter(operand1, operand2, result), coeff_count, [&](auto I) {
 #ifdef SEAL_DEBUG
                 if (get<0>(I) >= modulus_value)
@@ -92,9 +100,16 @@ namespace seal
                 std::uint64_t sum = get<0>(I) + get<1>(I);
                 get<2>(I) = SEAL_COND_SELECT(sum >= modulus_value, sum - modulus_value, sum);
             });
-            Num_add_poly_coeffmod++;
-           
-            cout<<"Num_add_poly_coeffmod: "<<coeff_count<<" "<<Num_add_poly_coeffmod<<endl;
+            if(coeff_count==256)
+            {
+                Num_add_poly_coeffmod256++;
+                cout<<"Num_add_poly_coeffmod256: "<<coeff_count<<" "<<Num_add_poly_coeffmod256<<endl;
+            }
+            else
+            {
+                Num_add_poly_coeffmod++;
+                 cout<<"Num_add_poly_coeffmod: "<<coeff_count<<" "<<Num_add_poly_coeffmod<<endl;
+            }
           
           
 #endif
@@ -127,14 +142,23 @@ namespace seal
 #ifdef SEAL_USE_INTEL_HEXL
             
             static int Num_sub_poly_coeffmod =0;
+            static int Num_sub_poly_coeffmod256 =0;
           
             intel::hexl::EltwiseSubMod(result, operand1, operand2, coeff_count, modulus_value);
-            Num_sub_poly_coeffmod++;
-            cout<<"Num_sub_poly_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_coeffmod<<endl;
+            if(coeff_count==256)
+            {
+                Num_sub_poly_coeffmod256++;
+                cout<<"Num_sub_poly_coeffmod256: "<<coeff_count<<" "<<Num_sub_poly_coeffmod256<<endl;
+            }
+            else
+            {
+                Num_sub_poly_coeffmod++;
+                 cout<<"Num_sub_poly_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_coeffmod<<endl;
+            }
             
 #else
              static int Num_sub_poly_coeffmod =0;
-          
+          static int Num_sub_poly_coeffmod256 =0;
             SEAL_ITERATE(iter(operand1, operand2, result), coeff_count, [&](auto I) {
 #ifdef SEAL_DEBUG
                 if (get<0>(I) >= modulus_value)
@@ -150,8 +174,16 @@ namespace seal
                 std::int64_t borrow = sub_uint64(get<0>(I), get<1>(I), &temp_result);
                 get<2>(I) = temp_result + (modulus_value & static_cast<std::uint64_t>(-borrow));
             });
-            Num_sub_poly_coeffmod++;
-            cout<<"Num_sub_poly_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_coeffmod<<endl;
+            if(coeff_count==256)
+            {
+                Num_sub_poly_coeffmod256++;
+                cout<<"Num_sub_poly_coeffmod256: "<<coeff_count<<" "<<Num_sub_poly_coeffmod256<<endl;
+            }
+            else
+            {
+                Num_sub_poly_coeffmod++;
+                 cout<<"Num_sub_poly_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_coeffmod<<endl;
+            }
           
           
 #endif
@@ -182,20 +214,37 @@ namespace seal
 #ifdef SEAL_USE_INTEL_HEXL
             
             static int Num_add_poly_scalar_coeffmod =0;
+            static int Num_add_poly_scalar_coeffmod256 =0;
            
             intel::hexl::EltwiseAddMod(result, poly, scalar, coeff_count, modulus.value());
-            Num_add_poly_scalar_coeffmod++;
-            cout<<"Num_add_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod<<endl;
+             if(coeff_count==256)
+            {
+                Num_add_poly_scalar_coeffmod256++;
+                cout<<"Num_add_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod256<<endl;
+            }
+            else
+            {
+                Num_add_poly_scalar_coeffmod++;
+                 cout<<"Num_add_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod<<endl;
+            }
             
 #else
             static int Num_add_poly_scalar_coeffmod =0;
-           
+           static int Num_add_poly_scalar_coeffmod256 =0;
              SEAL_ITERATE(iter(poly, result), coeff_count, [&](auto I) {
                 const uint64_t x = get<0>(I);
                 get<1>(I) = add_uint_mod(x, scalar, modulus);
             });
-            Num_add_poly_scalar_coeffmod++;
-            cout<<"Num_add_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod<<endl;
+            if(coeff_count==256)
+            {
+                Num_add_poly_scalar_coeffmod256++;
+                cout<<"Num_add_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod256<<endl;
+            }
+            else
+            {
+                Num_add_poly_scalar_coeffmod++;
+                 cout<<"Num_add_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod<<endl;
+            }
             
            
            
@@ -227,21 +276,38 @@ namespace seal
 
 #ifdef SEAL_USE_INTEL_HEXL
              static int Num_sub_poly_scalar_coeffmod =0;
+             static int Num_sub_poly_scalar_coeffmod256 =0;
            
             intel::hexl::EltwiseSubMod(result, poly, scalar, coeff_count, modulus.value());
-            Num_sub_poly_scalar_coeffmod++;
-            cout<<"Num_sub_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod<<endl;
+            if(coeff_count==256)
+            {
+                Num_sub_poly_scalar_coeffmod256++;
+                cout<<"Num_sub_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod256<<endl;
+            }
+            else
+            {
+                Num_sub_poly_scalar_coeffmod++;
+                 cout<<"Num_sub_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod<<endl;
+            }
             
             
 #else
              static int Num_sub_poly_scalar_coeffmod =0;
-           
+           static int Num_sub_poly_scalar_coeffmod256 =0;
             SEAL_ITERATE(iter(poly, result), coeff_count, [&](auto I) {
                 const uint64_t x = get<0>(I);
                 get<1>(I) = sub_uint_mod(x, scalar, modulus);
             });
-            Num_sub_poly_scalar_coeffmod++;
-            cout<<"Num_sub_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod<<endl;
+             if(coeff_count==256)
+            {
+                Num_sub_poly_scalar_coeffmod256++;
+                cout<<"Num_sub_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod256<<endl;
+            }
+            else
+            {
+                Num_sub_poly_scalar_coeffmod++;
+                 cout<<"Num_sub_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod<<endl;
+            }
                 
 #endif
         }
@@ -268,20 +334,37 @@ namespace seal
 #ifdef SEAL_USE_INTEL_HEXL
             
             static int Num_multiply_poly_scalar_coeffmod =0;
+            static int Num_multiply_poly_scalar_coeffmod256 =0;
            
             intel::hexl::EltwiseFMAMod(&result[0], &poly[0], scalar.operand, nullptr, coeff_count, modulus.value(), 8);
-            Num_multiply_poly_scalar_coeffmod++;
-            cout<<"Num_multiply_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod<<endl;
+            if(coeff_count==256)
+            {
+                Num_multiply_poly_scalar_coeffmod256++;
+                cout<<"Num_multiply_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod256<<endl;
+            }
+            else
+            {
+                Num_multiply_poly_scalar_coeffmod++;
+                 cout<<"Num_multiply_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod<<endl;
+            }
             
 #else
             static int Num_multiply_poly_scalar_coeffmod =0;
-           
+           static int Num_multiply_poly_scalar_coeffmod256 =0;
              SEAL_ITERATE(iter(poly, result), coeff_count, [&](auto I) {
                 const uint64_t x = get<0>(I);
                 get<1>(I) = multiply_uint_mod(x, scalar, modulus);
             });
-            Num_multiply_poly_scalar_coeffmod++;
-            cout<<"Num_multiply_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod<<endl;
+           if(coeff_count==256)
+            {
+                Num_multiply_poly_scalar_coeffmod256++;
+                cout<<"Num_multiply_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod256<<endl;
+            }
+            else
+            {
+                Num_multiply_poly_scalar_coeffmod++;
+                 cout<<"Num_multiply_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod<<endl;
+            }
               
 #endif
         }
@@ -315,14 +398,24 @@ namespace seal
 #ifdef SEAL_USE_INTEL_HEXL
             
             static int Num_dyadic_product_coeffmod =0;
+            static int Num_dyadic_product_coeffmod256 =0;
         
             intel::hexl::EltwiseMultMod(&result[0], &operand1[0], &operand2[0], coeff_count, modulus.value(), 4);
-            Num_dyadic_product_coeffmod++;
-       
-            cout<<"Num_dyadic_product_coeffmod: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod<<endl;
+            if(coeff_count==256)
+            {
+                Num_dyadic_product_coeffmod256++;
+                cout<<"Num_dyadic_product_coeffmod256: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod256<<endl;
+            }
+            else
+            {
+                Num_dyadic_product_coeffmod++;
+                 cout<<"Num_dyadic_product_coeffmod: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod<<endl;
+            }
+           
             
 #else
              static int Num_dyadic_product_coeffmod =0;
+            static int Num_dyadic_product_coeffmod256 =0;
         
              const uint64_t modulus_value = modulus.value();
             const uint64_t const_ratio_0 = modulus.const_ratio()[0];
@@ -352,9 +445,16 @@ namespace seal
                 // Claim: One more subtraction is enough
                 get<2>(I) = SEAL_COND_SELECT(tmp3 >= modulus_value, tmp3 - modulus_value, tmp3);
             });
-            Num_dyadic_product_coeffmod++;
-       
-            cout<<"Num_dyadic_product_coeffmod: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod<<endl;
+             if(coeff_count==256)
+            {
+                Num_dyadic_product_coeffmod256++;
+                cout<<"Num_dyadic_product_coeffmod256: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod256<<endl;
+            }
+            else
+            {
+                Num_dyadic_product_coeffmod++;
+                 cout<<"Num_dyadic_product_coeffmod: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod<<endl;
+            }
            
            
             
