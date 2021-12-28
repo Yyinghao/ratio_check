@@ -1231,6 +1231,7 @@ namespace seal
         inline void conjugate_internal(
             Ciphertext &encrypted, const GaloisKeys &galois_keys, MemoryPoolHandle pool) const
         {
+            static int Num_conjugate_internal = 0;
             // Verify parameters.
             auto context_data_ptr = context_.get_context_data(encrypted.parms_id());
             if (!context_data_ptr)
@@ -1249,6 +1250,8 @@ namespace seal
 
             // Perform rotation and key switching
             apply_galois_inplace(encrypted, galois_tool->get_elt_from_step(0), galois_keys, std::move(pool));
+            Num_conjugate_internal++;
+            cout<<"Num_conjugate_internal:"<<Num_conjugate_internal<<endl;
         }
 
         void switch_key_inplace(
