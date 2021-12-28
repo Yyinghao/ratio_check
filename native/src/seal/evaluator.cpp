@@ -2011,10 +2011,7 @@ namespace seal
     void Evaluator::rotate_internal(
         Ciphertext &encrypted, int steps, const GaloisKeys &galois_keys, MemoryPoolHandle pool) const
     {
-           clock_t time_rotate = 0;
-            static double t_rotate =0;
-            clock_t start,end; 
-            start = clock();
+          static int Num_rotate =0;
             
         auto context_data_ptr = context_.get_context_data(encrypted.parms_id());
         if (!context_data_ptr)
@@ -2068,10 +2065,8 @@ namespace seal
                 }
             });
         }
-        end = clock();
-        time_rotate += (end - start);
-        t_rotate += (double)time_rotate/CLOCKS_PER_SEC;
-        //cout<<"time_rotate: "<<t_rotate<<endl;
+         Num_rotate++;
+        cout<<"Num_rotate: "<<Num_rotate<<endl;
     }
 
     void Evaluator::switch_key_inplace(
