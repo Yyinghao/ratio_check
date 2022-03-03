@@ -1,6 +1,3 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT license.
-
 #include "seal/util/ntt.h"
 #include "seal/util/uintarith.h"
 #include "seal/util/uintarithsmallmod.h"
@@ -150,7 +147,6 @@ namespace intel
 
         /**
         Returns a HEXL NTT object corresponding to the given parameters.
-
         @param[in] N The polynomial modulus degree
         @param[in] modulus The modulus
         @param[in] root The root of unity
@@ -188,7 +184,6 @@ namespace intel
 
         /**
         Computes the forward negacyclic NTT from the given parameters.
-
         @param[in,out] operand The data on which to compute the NTT.
         @param[in] N The polynomial modulus degree
         @param[in] modulus The modulus
@@ -200,14 +195,20 @@ namespace intel
             seal::util::CoeffIter operand, std::size_t N, std::uint64_t modulus, std::uint64_t root,
             std::uint64_t input_mod_factor, std::uint64_t output_mod_factor)
         {
-           
+            static int Num_NTT = 0;
+            static clock_t time_NTT = 0;
+            clock_t start,end; 
+            start = clock();
             get_ntt(N, modulus, root).ComputeForward(operand, operand, input_mod_factor, output_mod_factor);
-           
+            end = clock();
+            time_NTT += (end - start);
+            Num_NTT ++；
+            cout<<"Num_NTT: "<<Num_NTT<<endl;
+            cout<<"time_NTT: "<<time_NTT<<endl;
         }
 
         /**
         Computes the inverse negacyclic NTT from the given parameters.
-
         @param[in,out] operand The data on which to compute the NTT.
         @param[in] N The polynomial modulus degree
         @param[in] modulus The modulus
@@ -219,9 +220,16 @@ namespace intel
             seal::util::CoeffIter operand, std::size_t N, std::uint64_t modulus, std::uint64_t root,
             std::uint64_t input_mod_factor, std::uint64_t output_mod_factor)
         {
-           
+            static int Num_INTT = 0;
+            static clock_t time_INTT = 0;
+            clock_t start,end; 
+            start = clock();
             get_ntt(N, modulus, root).ComputeInverse(operand, operand, input_mod_factor, output_mod_factor);
-           
+            end = clock();
+            time_INTT += (end - start);
+            Num_INTT ++；
+           cout<<"Num_INTT: "<<Num_INTT<<endl;
+           cout<<"time_INTT: "<<time_INTT<<endl;
         }
 
     } // namespace seal_ext
