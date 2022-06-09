@@ -75,12 +75,12 @@ namespace seal
             if(coeff_count==256)
             {
                 Num_add_poly_coeffmod256++;
-                cout<<"Num_add_poly_coeffmod256: "<<coeff_count<<" "<<Num_add_poly_coeffmod256<<endl;
+                //cout<<"Num_add_poly_coeffmod256: "<<coeff_count<<" "<<Num_add_poly_coeffmod256<<endl;
             }
             else
             {
                 Num_add_poly_coeffmod++;
-                 cout<<"Num_add_poly_coeffmod: "<<coeff_count<<" "<<Num_add_poly_coeffmod<<endl;
+                 //cout<<"Num_add_poly_coeffmod: "<<coeff_count<<" "<<Num_add_poly_coeffmod<<endl;
             }
             
 #else
@@ -103,12 +103,12 @@ namespace seal
             if(coeff_count==256)
             {
                 Num_add_poly_coeffmod256++;
-                cout<<"Num_add_poly_coeffmod256: "<<coeff_count<<" "<<Num_add_poly_coeffmod256<<endl;
+                //cout<<"Num_add_poly_coeffmod256: "<<coeff_count<<" "<<Num_add_poly_coeffmod256<<endl;
             }
             else
             {
                 Num_add_poly_coeffmod++;
-                 cout<<"Num_add_poly_coeffmod: "<<coeff_count<<" "<<Num_add_poly_coeffmod<<endl;
+                 //cout<<"Num_add_poly_coeffmod: "<<coeff_count<<" "<<Num_add_poly_coeffmod<<endl;
             }
           
           
@@ -148,12 +148,12 @@ namespace seal
             if(coeff_count==256)
             {
                 Num_sub_poly_coeffmod256++;
-                cout<<"Num_sub_poly_coeffmod256: "<<coeff_count<<" "<<Num_sub_poly_coeffmod256<<endl;
+                //cout<<"Num_sub_poly_coeffmod256: "<<coeff_count<<" "<<Num_sub_poly_coeffmod256<<endl;
             }
             else
             {
                 Num_sub_poly_coeffmod++;
-                 cout<<"Num_sub_poly_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_coeffmod<<endl;
+                 //cout<<"Num_sub_poly_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_coeffmod<<endl;
             }
             
 #else
@@ -177,12 +177,12 @@ namespace seal
             if(coeff_count==256)
             {
                 Num_sub_poly_coeffmod256++;
-                cout<<"Num_sub_poly_coeffmod256: "<<coeff_count<<" "<<Num_sub_poly_coeffmod256<<endl;
+                //cout<<"Num_sub_poly_coeffmod256: "<<coeff_count<<" "<<Num_sub_poly_coeffmod256<<endl;
             }
             else
             {
                 Num_sub_poly_coeffmod++;
-                 cout<<"Num_sub_poly_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_coeffmod<<endl;
+                 //cout<<"Num_sub_poly_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_coeffmod<<endl;
             }
           
           
@@ -220,12 +220,12 @@ namespace seal
              if(coeff_count==256)
             {
                 Num_add_poly_scalar_coeffmod256++;
-                cout<<"Num_add_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod256<<endl;
+                //cout<<"Num_add_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod256<<endl;
             }
             else
             {
                 Num_add_poly_scalar_coeffmod++;
-                 cout<<"Num_add_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod<<endl;
+                 //cout<<"Num_add_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod<<endl;
             }
             
 #else
@@ -238,12 +238,12 @@ namespace seal
             if(coeff_count==256)
             {
                 Num_add_poly_scalar_coeffmod256++;
-                cout<<"Num_add_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod256<<endl;
+                //cout<<"Num_add_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod256<<endl;
             }
             else
             {
                 Num_add_poly_scalar_coeffmod++;
-                 cout<<"Num_add_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod<<endl;
+                 //cout<<"Num_add_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_add_poly_scalar_coeffmod<<endl;
             }
             
            
@@ -282,12 +282,12 @@ namespace seal
             if(coeff_count==256)
             {
                 Num_sub_poly_scalar_coeffmod256++;
-                cout<<"Num_sub_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod256<<endl;
+                //cout<<"Num_sub_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod256<<endl;
             }
             else
             {
                 Num_sub_poly_scalar_coeffmod++;
-                 cout<<"Num_sub_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod<<endl;
+                 //cout<<"Num_sub_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod<<endl;
             }
             
             
@@ -301,12 +301,12 @@ namespace seal
              if(coeff_count==256)
             {
                 Num_sub_poly_scalar_coeffmod256++;
-                cout<<"Num_sub_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod256<<endl;
+                //cout<<"Num_sub_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod256<<endl;
             }
             else
             {
                 Num_sub_poly_scalar_coeffmod++;
-                 cout<<"Num_sub_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod<<endl;
+                 //cout<<"Num_sub_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_sub_poly_scalar_coeffmod<<endl;
             }
                 
 #endif
@@ -340,12 +340,12 @@ namespace seal
             if(coeff_count==256)
             {
                 Num_multiply_poly_scalar_coeffmod256++;
-                cout<<"Num_multiply_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod256<<endl;
+                //cout<<"Num_multiply_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod256<<endl;
             }
             else
             {
                 Num_multiply_poly_scalar_coeffmod++;
-                 cout<<"Num_multiply_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod<<endl;
+                 //cout<<"Num_multiply_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod<<endl;
             }
             
 #else
@@ -358,12 +358,12 @@ namespace seal
            if(coeff_count==256)
             {
                 Num_multiply_poly_scalar_coeffmod256++;
-                cout<<"Num_multiply_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod256<<endl;
+                //cout<<"Num_multiply_poly_scalar_coeffmod256: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod256<<endl;
             }
             else
             {
                 Num_multiply_poly_scalar_coeffmod++;
-                 cout<<"Num_multiply_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod<<endl;
+                 //cout<<"Num_multiply_poly_scalar_coeffmod: "<<coeff_count<<" "<<Num_multiply_poly_scalar_coeffmod<<endl;
             }
               
 #endif
@@ -404,12 +404,12 @@ namespace seal
             if(coeff_count==256)
             {
                 Num_dyadic_product_coeffmod256++;
-                cout<<"Num_dyadic_product_coeffmod256: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod256<<endl;
+                //cout<<"Num_dyadic_product_coeffmod256: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod256<<endl;
             }
             else
             {
                 Num_dyadic_product_coeffmod++;
-                 cout<<"Num_dyadic_product_coeffmod: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod<<endl;
+                 //cout<<"Num_dyadic_product_coeffmod: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod<<endl;
             }
            
             
@@ -448,12 +448,12 @@ namespace seal
              if(coeff_count==256)
             {
                 Num_dyadic_product_coeffmod256++;
-                cout<<"Num_dyadic_product_coeffmod256: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod256<<endl;
+                //cout<<"Num_dyadic_product_coeffmod256: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod256<<endl;
             }
             else
             {
                 Num_dyadic_product_coeffmod++;
-                 cout<<"Num_dyadic_product_coeffmod: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod<<endl;
+                 //cout<<"Num_dyadic_product_coeffmod: "<<coeff_count<<" "<<Num_dyadic_product_coeffmod<<endl;
             }
            
            
