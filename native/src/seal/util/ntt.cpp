@@ -406,6 +406,7 @@ namespace seal
 
         void ntt_negacyclic_harvey_lazy(CoeffIter operand, const NTTTables &tables)
         {
+            cout>>"NTT1"<<endl;
 #ifdef SEAL_USE_INTEL_HEXL
             size_t N = size_t(1) << tables.coeff_count_power();
             uint64_t p = tables.modulus().value();
@@ -451,6 +452,7 @@ namespace seal
 
         void inverse_ntt_negacyclic_harvey_lazy(CoeffIter operand, const NTTTables &tables)
         {
+            cout<<"NTT2"<<endl;
 #ifdef SEAL_USE_INTEL_HEXL
             size_t N = size_t(1) << tables.coeff_count_power();
             uint64_t p = tables.modulus().value();
