@@ -203,8 +203,8 @@ namespace intel
             end = clock();
             time_NTT += (end - start);
             Num_NTT ++；
-            cout<<"Num_NTT: "<<Num_NTT<<endl;
-            cout<<"time_NTT: "<<time_NTT<<endl;
+            //cout<<"Num_NTT: "<<Num_NTT<<endl;
+            //cout<<"time_NTT: "<<time_NTT<<endl;
         }
 
         /**
@@ -228,8 +228,8 @@ namespace intel
             end = clock();
             time_INTT += (end - start);
             Num_INTT ++；
-           cout<<"Num_INTT: "<<Num_INTT<<endl;
-           cout<<"time_INTT: "<<time_INTT<<endl;
+           //cout<<"Num_INTT: "<<Num_INTT<<endl;
+           //cout<<"time_INTT: "<<time_INTT<<endl;
         }
 
     } // namespace seal_ext
@@ -430,11 +430,8 @@ namespace seal
                 count1 = 0;
             });
             sparsity_ratio += ratio_flag/n;
-            if(num_call != 1)
-            {
-                sparsity_ratio /= 2;
-            }
-            cout<<"bitcount:  "<<bitcount<<"  "<<"sparsity: "<<sparsity_ratio<<endl;
+             cout<<"bitcount:  "<<bitcount<<"  "<<"sparsity: "<<sparsity_ratio<<endl;
+            cout<<"num_call: "<<num_call<<endl;
 #ifdef SEAL_USE_INTEL_HEXL
             size_t N = size_t(1) << tables.coeff_count_power();
             uint64_t p = tables.modulus().value();
@@ -449,7 +446,7 @@ namespace seal
 
         void ntt_negacyclic_harvey(CoeffIter operand, const NTTTables &tables)
         {
-            cout<<"NTT1"<<endl;
+            //cout<<"NTT1"<<endl;
 #ifdef SEAL_USE_INTEL_HEXL
             size_t N = size_t(1) << tables.coeff_count_power();
             uint64_t p = tables.modulus().value();
@@ -481,7 +478,7 @@ namespace seal
 
         void inverse_ntt_negacyclic_harvey_lazy(CoeffIter operand, const NTTTables &tables)
         {
-            cout<<"NTT2"<<endl;
+            //cout<<"NTT2"<<endl;
 #ifdef SEAL_USE_INTEL_HEXL
             size_t N = size_t(1) << tables.coeff_count_power();
             uint64_t p = tables.modulus().value();
