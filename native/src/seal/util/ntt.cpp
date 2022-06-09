@@ -406,6 +406,35 @@ namespace seal
 
         void ntt_negacyclic_harvey_lazy(CoeffIter operand, const NTTTables &tables)
         {
+            static double sparsity_ratio = 0;
+            static int num_call = 0;
+            num_call++;
+            size_t n = size_t(1) << tables.coeff_count_power();
+            uint64_t bitcount = tables.modulus().bit_count();
+           
+            int count1 = 0;
+            int flag;
+            double ratio_flag = 0;
+            SEAL_ITERATE(operand, n, [&](auto I) {
+                int bitflag = bitcount;
+                while(bitflag--)
+                {
+                    flag = I%2;
+                    if(flag)
+                    {
+                        count1++;
+                    }
+                    I/=2;
+                }  
+                ratio_flag += count1*1.0/bitcount;
+                count1 = 0;
+            });
+            sparsity_ratio += ratio_flag/n;
+            if(num_call != 1)
+            {
+                sparsity_ratio /= 2;
+            }
+            cout<<"bitcount:  "<<bitcount<<"  "<<"sparsity: "<<sparsity_ratio<<endl;
 #ifdef SEAL_USE_INTEL_HEXL
             size_t N = size_t(1) << tables.coeff_count_power();
             uint64_t p = tables.modulus().value();
