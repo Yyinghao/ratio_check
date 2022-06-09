@@ -1251,7 +1251,7 @@ namespace seal
             // Perform rotation and key switching
             apply_galois_inplace(encrypted, galois_tool->get_elt_from_step(0), galois_keys, std::move(pool));
             Num_conjugate_internal++;
-            cout<<"Num_conjugate_internal:"<<Num_conjugate_internal<<endl;
+            //cout<<"Num_conjugate_internal:"<<Num_conjugate_internal<<endl;
         }
 
         void switch_key_inplace(
